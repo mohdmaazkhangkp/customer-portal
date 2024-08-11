@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import React, { useState, useCallback, useRef, useEffect, SetStateAction, Dispatch } from "react";
 import { faker } from "@faker-js/faker";
 import { Customer, setSelectedCustomer } from "../store/customerSlice";
 import { RootState } from "../store";
@@ -13,7 +13,11 @@ const generateCustomers = (count: number): Customer[] => {
   }));
 };
 
-const CustomersList: React.FC = () => {
+interface CustomersListProps {
+    setShowMenu: Dispatch<SetStateAction<boolean>>;
+  }
+
+const CustomersList: React.FC<CustomersListProps> = ({setShowMenu}) => {
   const [customers, setCustomers] = useState<Customer[]>(generateCustomers(20));
   const [hasMore, setHasMore] = useState(true);
   const selectedCustomer = useSelector((state: RootState) => state.customer);
@@ -47,7 +51,7 @@ const CustomersList: React.FC = () => {
   }, []);
 
   return (
-    <div className="fixed left-0 pr-5 pl-3 top-[3.75rem] bottom-0 overflow-y-auto">
+    <div className="z-20 bg-gray-50 fixed left-0 pr-5 pl-3 top-[3.75rem] bottom-0 overflow-y-auto">
       {customers.map((customer, index) => (
         <div
           key={customer.id}
@@ -57,7 +61,11 @@ const CustomersList: React.FC = () => {
               ? "bg-gray-200"
               : "hover:bg-gray-100"
           }`}
-          onClick={() => dispatch(setSelectedCustomer(customer))}
+          onClick={() => {
+            dispatch(setSelectedCustomer(customer));
+            setShowMenu(false);
+            window.scrollTo({ top: 0, behavior: 'instant' });
+          }}
         >
           <h2 className="font-bold">{customer.name}</h2>
           <p>{customer.title}</p>
