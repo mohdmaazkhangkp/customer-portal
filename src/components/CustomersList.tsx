@@ -14,10 +14,10 @@ const generateCustomers = (count: number): Customer[] => {
 };
 
 interface CustomersListProps {
-    setShowMenu: Dispatch<SetStateAction<boolean>>;
-  }
+  setShowMenu: Dispatch<SetStateAction<boolean>>;
+}
 
-const CustomersList: React.FC<CustomersListProps> = ({setShowMenu}) => {
+const CustomersList: React.FC<CustomersListProps> = ({ setShowMenu }) => {
   const [customers, setCustomers] = useState<Customer[]>(generateCustomers(20));
   const [hasMore, setHasMore] = useState(true);
   const selectedCustomer = useSelector((state: RootState) => state.customer);
@@ -51,7 +51,7 @@ const CustomersList: React.FC<CustomersListProps> = ({setShowMenu}) => {
   }, []);
 
   return (
-    <div className="z-20 bg-gray-50 fixed left-0 pr-5 pl-3 top-[3.75rem] bottom-0 overflow-y-auto">
+    <div className="z-20 bg-gray-50 fixed left-0 pr-5 pl-3 top-[3.75rem] bottom-0 overflow-y-auto w-[300px] max-w-[300px]">
       {customers.map((customer, index) => (
         <div
           key={customer.id}

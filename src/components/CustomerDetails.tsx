@@ -36,7 +36,7 @@ const CustomerDetails: React.FC = () => {
   }, [page]);
 
   return (
-    <div className="p-6 sm:ml-6 sm:pr-8 ">
+    <div className="p-6 sm:pr-8 ">
       <h2 className="text-2xl font-bold mb-4">{customer?.name}</h2>
       <p className="mb-2">{customer?.title}</p>
       <p className="mb-6">{customer?.address}</p>
